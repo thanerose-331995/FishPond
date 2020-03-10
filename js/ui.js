@@ -1,7 +1,6 @@
 
 //when browser loads
 document.addEventListener('DOMContentLoaded', function () {
-    getFish();
 });
 
 
@@ -38,7 +37,6 @@ function removePet(id) {
 }
 
 // SIGNUP/LOGIN FORM //
-
 function showForm(i, j){
     $($(i).parent()).parent().addClass("hide");
     $(j).removeClass("hide");
@@ -60,3 +58,15 @@ $(document).keypress(function (e) {
         validate ? $(form).find("button").removeClass("disabled") : null;
     }
 });
+
+//check login status
+function checkLogin(){
+    console.log("logged in: ", sessionStorage.getItem("logged_in"));
+    if(sessionStorage.getItem("logged_in")){
+        if(window.location.href != "/"){
+            window.location.href = "/";
+        }
+    }else{
+        window.location.href = "./pages/signup_login.html";
+    }
+}

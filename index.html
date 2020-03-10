@@ -32,94 +32,14 @@
     </div>
     <main>
 
-        <div class="container hide">
+        <div class="container">
             <div id="welcome-location">Welcome</div>
 
             <div class="fish container">
             </div>
         </div>
-        <div class="container">
-            <div class="login-form">
-                <h3>Login</h3>
-                <div class="row">
-                    <form class="login col s12">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="email" type="email" class="validate" required>
-                                <label for="email">Email</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="password" type="password" class="validate" required>
-                                <label for="password">Password</label>
-                            </div>
-                        </div>
-                    </form>
-                    <a class="waves-effect waves-light indigo btn" onclick="showForm(this, '.signup-form')">Sign Up</a>
-                    <br>
-                    <button class="btn waves-effect waves-light indigo disabled" type="submit"
-                        name="action">Submit
-                        <i class="material-icons right" onclick="login()">send</i>
-                    </button>
-                </div>
-            </div>
-            <div class="signup-form hide">
-                <h3>Sign Up</h3>
-                <div class="row">
-                    <form class="signup col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input placeholder="Jane" id="first_name" type="text" class="validate">
-                                <label for="first_name">First Name</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input placeholder="Doe" id="last_name" type="text" class="validate">
-                                <label for="last_name">Last Name</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input placeholder="London" id="origin" type="text" class="validate">
-                                <label for="origin">Origin City</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="password" type="password" class="validate">
-                                <label for="password">Password</label>
-                            </div>
-                        </div>
-                    </form>
-                    <a class="waves-effect waves-light indigo btn" onclick="showForm(this, '.login-form')">Login</a>
-                    <br>
-                    <button class="btn waves-effect waves-light indigo disabled" onclick="addUser()">Submit
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-            </div>
-        </div>
     </main>
-    <!-- top nav -->
-    <!-- <footer class="page-footer indigo">
-        <div class="container">
-            <a href="/" class="brand-logo left">FishPond</a>
-            <ul class="right">
-                <li><a href="/">Pond</a></li>
-                <li><a href="/">Fish</a></li>
-                <li><a href="/">Profile</a></li>
-            </ul>
-        </div>
-    </footer> -->
 
-
-    
 
 
     <!-- DB Link -->
@@ -151,7 +71,12 @@
 
 </html>
 <script>
+
     $(document).ready(() => {
+        if (sessionStorage.getItem("logged_in")) {
+        } else {
+            window.location.href = "./pages/signup_login.html";
+        }
         getGeo(function (res) {
             console.log("Your position:");
             console.log("Latitude:", res.latitude);
@@ -159,6 +84,7 @@
             getCity(res.latitude, res.longitude, function (city) {
                 console.log("city:", city);
                 $("#welcome-location").html(`Welcome to the ${city} pond`);
+                getFish(city);
             })
         })
     });
