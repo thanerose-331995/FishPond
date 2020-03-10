@@ -11,61 +11,58 @@ db.enablePersistence()
 
 
 //realtime listener
-// db.collection('fish').onSnapshot((snapshot) => {
-//     //gets a snapshot of this collection whenever theres a change
-//     console.log(snapshot.docChanges());
-//     snapshot.docChanges().forEach(change => {
-//         console.log(change, change.doc.data(), change.doc.id);
-//         if (change.type === 'added') {
-//             //add data
-//             getFish();
-//         }
-//         if (change.type === 'removed') {
-//             //remove data
-//             removePet(change.doc.id);
-//         }
-//     });
-// })
+db.collection('fish').onSnapshot(snapshot => {
+    //gets a snapshot of this collection whenever theres a change
+    console.log(snapshot.docChanges());
+    snapshot.docChanges().forEach(change => {
+        console.log(change, change.doc.data(), change.doc.id);
+        if (change.type === 'added') {
+            //add data
+            const city = sessionStorage.getItem("location");
+            getFish(city);
+        }
+        if (change.type === 'removed') {
+            //remove data
+            removePet(change.doc.id);
+        }
+    });
+})
 
 function getFish(city) {
     db.collection('fish').where('city', '==', city).get().then((snapshot) => {
+        console.log(snapshot.docs.length);
         snapshot.docs.forEach(doc => {
             displayFish(doc.data(), doc.id);
         })
     })
 }
 
-// //add pet
-// const form = document.querySelector('form');
+//add fish
+function addFish(){
+    const form = $(".add-fish").find("form")[0];
 
-// form.addEventListener('submit', evt => {
-//     evt.preventDefault(); //so the page doesnt automatically refresh
+    const fish = {
+        name: form.name.value,
+        city: form.city.value,
+        color: form.colorSelect.value,
+        origin: form.origin.value,
+        parent: form.parent.value
+    }
 
-//     const pet = {
-//         name : form.name.value,
-//         age: form.age.value,
-//         breed: form.breed.value
-//     }
+    var valid = true;
+    for(var val in fish){
+        if(val == ""){
+            valid = false;
+        }
+    }
 
-//     db.collection('pets').add(pet)
-//         .catch(err => {console.log(err)});
-
-//     form.name.value = "";
-//     form.age.value = "";
-//     form.breed.value = "";
-// })
-
-//delete pet
-// const petContainer = document.querySelector('.pets');
-// petContainer.addEventListener('click', evt => {
-//     if (evt.target.tagName === 'I') {
-//         const id = evt.target.getAttribute('data-id');
-//         db.collection('pets').doc(id).delete();
-//     }
-// })
+    if(valid){
+        console.log("add: ", fish);
+        db.collection('fish').add(fish).catch(err => { console.log(err) });
+    }
+}
 
 // USERS //
-
 function addUser() {
     const form = ($('.signup-form').find('form'))[0];
 
@@ -88,8 +85,9 @@ function addUser() {
                 if (snapshot.empty) {
                     //then sign up
                     $("#signup-err").html("");
-                    db.collection('users').add(user)
-                        .catch(err => { console.log(err) });
+                    db.collection('users').add(user).catch(err => { console.log(err) });
+                    sessionStorage.setItem("currentUser", user.username);
+                    //set logged in to true
                     sessionStorage.setItem("logged_in", true);
                     checkLogin();
                 }
@@ -104,6 +102,7 @@ function addUser() {
     });
 }
 
+//LOGIN
 function login() {
     console.log("check");
     const form = ($('.login-form').find('form'))[0];
@@ -118,6 +117,7 @@ function login() {
         if (!snapshot.empty) {
             snapshot.docs.forEach(doc => {  
                 if (doc.data().password === user.password) {
+                    sessionStorage.setItem("currentUser", doc.data().username);
                     sessionStorage.setItem("logged_in", true);
                     checkLogin();
                 }
@@ -131,8 +131,6 @@ function login() {
         }
     })
 }
-
-
 
 //THIS IS WIP
 $('.signup-form').find('#username').on('keyup', () => {

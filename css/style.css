@@ -6,7 +6,7 @@ body {
 main {
   flex: 1 0 auto;
 }
-.footer{
+.end{
   position: fixed;
   bottom: 0;
   width: 100%;
