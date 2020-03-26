@@ -15,7 +15,7 @@ db.collection('fish').onSnapshot(snapshot => {
     //gets a snapshot of this collection whenever theres a change
     console.log(snapshot.docChanges());
     snapshot.docChanges().forEach(change => {
-        console.log(change, change.doc.data(), change.doc.id);
+        console.log(change, change.doc.data(), change.doc.id)
         if (change.type === 'added') {
             //add data
             const city = sessionStorage.getItem("location");
@@ -25,7 +25,7 @@ db.collection('fish').onSnapshot(snapshot => {
             //remove data
             removePet(change.doc.id);
         }
-    });
+    }
 })
 
 function getFish(city) {
