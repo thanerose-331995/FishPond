@@ -5,169 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- styles -->
-    <link type="text/css" href="/css/materialize.min.css" rel="stylesheet">
+    <!-- <link type="text/css" href="/css/style.css" rel="stylesheet"> -->
+    <link type="text/css" href="./css/materialize.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" href="/css/style.css" rel="stylesheet">
     <!-- js links -->
-    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script type="text/javascript" src="./js/materialize.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
     <title>Fish Pond</title>
     <!-- link to manifest -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#FFE1C4">
 </head>
 
-<body>
-    <header></header>
-    <div class="end indigo">
-        <div class="container">
-            <div class="row">
-                <ul class="center">
-                    <li><a class="grey-text text-lighten-3 col s4" href="#!">Pond</a></li>
-                    <li><a class="grey-text text-lighten-3 col s4" href="#!">Fish</a></li>
-                    <li><a class="grey-text text-lighten-3 col s4" href="#!">Profile</a></li>
-                </ul>
+<body style="background: rgb(21,101,192);background: linear-gradient(315deg, rgba(21,101,192,1) 0%, rgba(2,136,209,1) 39%, rgba(0,172,193,1) 100%);">
+    <div class="container">
+        <div class="row valign-wrapper" style="height: 90%">
+            <div class="col s12">
+                <div class="card white hoverable">
+                    <div class="card-content center">
+                        <h5 style="margin: 0px;">Welcome to the</h5>
+                        <h4> <b>FishPond</b></h4>
+                        <br>
+                        <button data-target="modal-login" class="btn cyan modal-trigger">Login</button>
+                        <button data-target="modal-signup" class="btn cyan modal-trigger">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-login" class="modal">
+            <div class="modal-content">
+                <h4>Login</h4>
+                <form id="login">
+                    <div class="input-field">
+                        <input type="email" class="validate" required name="email" value="">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" class="validate" required name="password" value="">
+                        <label for="password">Password</label>
+                    </div>
+                    <button class="modal-close waves-effect cyan btn-flat">Login</button>
+                </form>
+            </div>
+        </div>
+        <div id="modal-signup" class="modal">
+            <div class="modal-content">
+                <h4>Sign Up</h4>
+                <br>
+                <form id="signup">
+                    <div class="input-field">
+                        <input placeholder="Jane" type="text" class="validate" name="first_name" value="">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input placeholder="Doe" type="text" class="validate" name="last_name" value="">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input placeholder="London" type="text" class="validate" name="origin" value="">
+                        <label for="origin">Origin City</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="validate" name="username" value="">
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="email" class="validate" name="email" value="">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" class="validate" name="password" value="">
+                        <label for="password">Password</label>
+                    </div>
+                    <button class="modal-close waves-effect cyan btn-flat">Sign Up</button>
+                </form>
             </div>
         </div>
     </div>
-    <main>
-
-        <div class="container">
-            <div id="welcome-location">Welcome</div>
-            <div class="fish container">
-            </div>
-            <div class="card indigo lighten-3">
-                <div class="card-content">
-                    <p>hello</p>
-                </div>
-            </div>
-            <div class="center">
-                <a class="btn-floating btn-medium waves-effect waves-light indigo darken-1 modal-trigger"
-                    href="#new-fish"><i class="material-icons">add</i></a>
-            </div>
-            <div id="new-fish" class="modal center indigo lighten-5">
-                <h3 style="padding-top: 15px;">Add a new Fish!</h3>
-                <div class="add-fish row">
-                    <form class="col s12">
-                        <div class="input-field col s12">
-                            <input id="name" type="text" class="validate" required>
-                            <label for="name">Name</label>
-                            <div></div>
-                        </div>
-                        <div class="input-field col s12">
-                            <select class="colorSelect" name="colorSelect">
-                                <option value="" disabled selected>Color</option>
-                                <option value="black">Black</option>
-                                <option value="white">White</option>
-                                <option value="orange">Orange</option>
-                            </select>
-                            <label>Select Color</label>
-                        </div>
-                        <input id="fish-origin" type="hidden" name="origin" value="null">
-                        <input id="fish-parent" type="hidden" name="parent" value="null">
-                        <input id="fish-city" type="hidden" name="city" value="null">
-                    </form>
-                </div>
-                <div class="card added-fish center indigo lighten-4"></div>
-            </div>
-        </div>
-    </main>
-
-
-
-    <!-- DB Link -->
-
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyDWZIlMrHn0gXM8K4IhthYxXw8tyB3ks48",
-            authDomain: "fishpond-pwa.firebaseapp.com",
-            databaseURL: "https://fishpond-pwa.firebaseio.com",
-            projectId: "fishpond-pwa",
-            storageBucket: "fishpond-pwa.appspot.com",
-            messagingSenderId: "986686776620",
-            appId: "1:986686776620:web:69dbf122ef36afb28cb889",
-            measurementId: "G-Q2TLGC8KV4"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-    </script>
-
-    <script src="/js/app.js"></script>
-    <script src="/js/ui.js"></script>
-    <script src="/js/db.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
+    <!-- other scripts -->
+    <script src="./js/app.js"></script>
+    <script src="./js/db.js"></script>
+    <script src="./js/auth.js"></script>
 </body>
-
-</html>
 <script>
-
-    var user = null;
-
-    //ON DOC LOAD
-    $(document).ready(() => {
-
-        //INIT SELECT FORM
-        M.AutoInit();
-        $('.fish').empty();
-        //CHECKED LOGGED IN STATUS AND GET CURRENT USER
-        if (sessionStorage.getItem("logged_in")) {
-            db.collection('users').where('username', '==', sessionStorage.getItem("currentUser")).get().then((snapshot) => {
-                snapshot.docs.forEach((doc) => {
-                    user = doc.data();
-                })
-                console.log("current user:");
-                console.log(user);
-                $("#fish-parent").val(user.username);
-                $("#fish-origin").val(user.originCity);
-            })
-        } else {
-            window.location.href = "./pages/signup_login.html";
-        }
-
-        //GET GEO
-        getGeo(function (res) {
-            getCity(res.latitude, res.longitude, function (city) {
-                sessionStorage.setItem("location", city);
-                console.log("city:", city);
-                $("#welcome-location").html(`Welcome to the ${city} pond`);
-                $("#fish-city").val(city);
-                // getFish(city);
-            })
-        })
+    $(document).ready(function () {
+        var elems = document.querySelectorAll('.modal');
+        M.Modal.init(elems);
     });
-
-
-    //GEOLOCATION
-    function getGeo(callback) {
-        //ops
-        var options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        };
-        //done
-        function success(pos) {
-            callback(pos.coords);
-        }
-        //err handle
-        function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
-        }
-        //call
-        navigator.geolocation.getCurrentPosition(success, error, options);
-    }
-
-    //reverse geocoding from lat and long
-    function getCity(lat, long, callback) {
-        var token = "access_token=pk.eyJ1IjoibWF0dGZpY2tlIiwiYSI6ImNqNnM2YmFoNzAwcTMzM214NTB1NHdwbnoifQ.Or19S7KmYPHW8YjRz82v6g&cachebuster=1582041948131&autocomplete=true";
-        var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + long + "%2C" + lat + ".json?" + token;
-
-        $.get(url, function (data, status) {
-            callback(data.features[2].text);
-        })
-    }
 </script>
+</html>

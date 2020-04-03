@@ -1,7 +1,15 @@
 
 //when browser loads
+var currentUser = {};
 
-
+//LOGOUT
+$("#logout").click(e => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+        console.log("User Signed Out");
+        window.location.href = "../";
+    })
+})
 
 // FISHES //
 
@@ -10,7 +18,7 @@ function displayFish(data, id) {
     //this is a template html
     const html = `
         <div class="row">
-            <div class="col s12 m6">
+            <div class="col s12">
                 <div class="card indigo darken-1">
                     <div class="card-content white-text">
                         <span class="card-title">Name: ${data.name}</span>
@@ -56,39 +64,38 @@ $(".add-fish").change(() => {
             </div>
         </div>`
     );
-})  
+})
 
-// SIGNUP/LOGIN FORM //
-function showForm(i, j) {
-    $($(i).parent()).parent().addClass("hide");
-    $(j).removeClass("hide");
+//PROFILE
+function loadProfile(user) {
+    db.collection('users').doc(user.uid).get().then(doc => {
+        $("#profile-data").empty();
+        $("#profile-data").append(`` +
+            `<div class= "row">` +
+            `<div class="col s12 m6">` +
+            `<div class="card white">` +
+            `<div class="card-content">` +
+            `<span class="card-title"><b>${doc.data().username}</b></span>` +
+            `<h6><b>${doc.data().first_name} ${doc.data().last_name}</b></h6>`+
+            `<p>Origin City: ${doc.data().origin}</p>` +
+            `</div>` +
+            `</div>` +
+            `</div>` +
+            `</div >`
+        );
+    })
 }
 
-//validate form
-$(document).keypress(function (e) {
-    var form = ($(".login-form").is(":visible")) ? $(".login-form")
-        : ($(".signup-form").is(":visible")) ? $(".signup-form")
-            : null;
-    if (form !== null) {
-        var validate = true;
-        $.each($(form).find("input"), (key, val) => {
-            if (val.value == "") {
-                validate = false;
-            }
-        });
-        validate = true; //debugging
-        validate ? $(form).find("button").removeClass("disabled") : null;
-    }
-});
-
-//check login status
-function checkLogin() {
-    console.log("logged in: ", sessionStorage.getItem("logged_in"));
-    if (sessionStorage.getItem("logged_in")) {
-        if (window.location.href != "/") {
-            window.location.href = "/";
-        }
-    } else {
-        window.location.href = "./pages/signup_login.html";
-    }
-}
+//NAV BAR
+$("#pond-button").click(() => {
+    window.location.href = "./main.html";
+})
+$("#feed-button").click(() => {
+    window.location.href = "./feed.html";
+})
+$("#chats-button").click(() => {
+    console.log("chats");
+})
+$("#profile-button").click(() => {
+    window.location.href = "./profile.html";
+})

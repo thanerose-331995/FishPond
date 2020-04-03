@@ -2,6 +2,8 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background: rgb(21,101,192);
+  background: linear-gradient(315deg, rgba(21,101,192,1) 0%, rgba(2,136,209,1) 39%, rgba(0,172,193,1) 100%);
 }
 main {
   flex: 1 0 auto;
@@ -11,3 +13,18 @@ main {
   bottom: 0;
   width: 100%;
 }
+h5, h6{
+  margin: 0px;
+}
+/* .container  {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.container .row {
+  margin: 0 auto;
+} */

@@ -1,7 +1,7 @@
 //these two only run once per session, can be useful for caching
 
 //a new cache
-const ver = '8';
+const ver = '10';
 const staticCache = 'site-static-v'+ver;
 const dynamicCache = 'site-dynamic-v'+ver;
 
@@ -14,9 +14,11 @@ const assets = [
     '/js/ui.js',
     '/js/materialize.min.js',
     '/js/jquery-3.4.1.min.js',
+    '/js/signup_login.js',
     '/css/style.css',
     '/css/materialize.min.css',
     '/pages/fallback.html',
+    '/pages/signup_login.html',
     'https://fonts.googleapis.com/icon?family=Material+Icons',
     'https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2'
 ];
