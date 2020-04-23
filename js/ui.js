@@ -14,26 +14,22 @@ $("#logout").click(e => {
 // FISHES //
 
 function displayFish(data, id) {
-    console.log("check");
-    //this is a template html
+    var name = data.name.replace(data.name[0], data.name[0].toUpperCase());
     const html = `
-        <div class="row">
-            <div class="col s12">
-                <div class="card indigo darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">Name: ${data.name}</span>
-                        <p>User: ${data.parent}</p>
-                        <p>Color: ${data.color}</p>
-                        <p>Origin City: ${data.origin}</p>
+                <div class="card" style="background-color: rgba(255,255,255,0.3)">
+                    <div class="card-content white-text row" style="font-size: 11px;padding:15px">
+                        <h5 class="col s12">${name}</h5>
+                        <div class="divider col s12" style="margin: 5px"></div>
+                        <div class="col s12 align-left row" style="margin:0px">
+                        
+                        <p class="col s4">User: ${data.parent}</p>
+                        <p class="col s6">Origin City: ${data.origin}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
     `;
 
     $('.fish').append(html);
-
-    console.log(data, id);
 }
 
 function removePet(id) {
@@ -47,43 +43,42 @@ $(".add-fish").change(() => {
     const fish = $(".add-fish").find("form")[0];
     var name = fish.name.value;
     name = name.replace(name[0], name[0].toUpperCase());
-
+    var user = $.parseJSON(sessionStorage.user);
+    console.log(user);
     $(".added-fish").empty();
     $(".added-fish").append(
         `<div class="card-content">
-            <span class="card-title"><i><b>${name}</b></i></span>
-            <img src="img/fish.png" style="width: 50px;">
-            <div class="row">
-                <h6 class="col s6"><b>Pond: </b><i>${fish.city.value}</i></h6>
-                <h6 class="col s6"><b>Parent: </b><i>${fish.parent.value}</i></h6>
-                <h6 class="col s6"><b>City of Origin:</b> <i>${fish.origin.value}</i></h6>
-                <h6 class="col s6"><b>Color:</b> <i>${fish.colorSelect.value}</i></h6>
-            </div>
-            <div class="card-action">
-                <a class="btn waves-effect waves-light indigo darken-2 modal-close" onclick="addFish()"><i class="material-icons">add_circle</i></a>
-            </div>
-        </div>`
+                <span class="card-title"><i><b>${name}</b></i></span>
+                <img src="../img/fish.png" style="width: 50px;">
+                <div class="row">
+                    <h6 class="col s6"><b>Pond: </b><i>${fish.city.value}</i></h6>
+                    <h6 class="col s6"><b>Parent: </b><i>${user.username}</i></h6>
+                    <h6 class="col s6"><b>City of Origin:</b> <i>${user.origin}</i></h6>
+                    <h6 class="col s6"><b>Color:</b> <i>${fish.colorSelect.value}</i></h6>
+                </div>
+                <div class="card-action">
+                    <a class="btn waves-effect waves-light indigo darken-2 modal-close" onclick="addFish()"><i class="material-icons">add_circle</i></a>
+                </div>
+            </div>`
     );
 })
 
 //PROFILE
 function loadProfile(user) {
-    db.collection('users').doc(user.uid).get().then(doc => {
-        $("#profile-data").empty();
-        $("#profile-data").append(`` +
-            `<div class= "row">` +
-            `<div class="col s12 m6">` +
-            `<div class="card white">` +
-            `<div class="card-content">` +
-            `<span class="card-title"><b>${doc.data().username}</b></span>` +
-            `<h6><b>${doc.data().first_name} ${doc.data().last_name}</b></h6>`+
-            `<p>Origin City: ${doc.data().origin}</p>` +
-            `</div>` +
-            `</div>` +
-            `</div>` +
-            `</div >`
-        );
-    })
+    $("#profile-data").empty();
+    $("#profile-data").append(`` +
+        `<div class= "row">` +
+        `<div class="col s12 m6">` +
+        `<div class="card white">` +
+        `<div class="card-content">` +
+        `<span class="card-title"><b>${user.username}</b></span>` +
+        `<h6><b>${user.first_name} ${user.last_name}</b></h6>` +
+        `<p>Origin City: ${user.origin}</p>` +
+        `</div>` +
+        `</div>` +
+        `</div>` +
+        `</div >`
+    );
 }
 
 //NAV BAR

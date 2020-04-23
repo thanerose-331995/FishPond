@@ -33,9 +33,9 @@ db.enablePersistence()
 function getSnapshot() {
     db.collection('fish').onSnapshot(snapshot => {
         //gets a snapshot of this collection whenever theres a change
-        console.log(snapshot.docChanges());
+        // console.log(snapshot.docChanges());
         snapshot.docChanges().forEach(change => {
-            console.log(change, change.doc.data(), change.doc.id)
+            // console.log(change, change.doc.data(), change.doc.id)
             if (change.type === 'added') {
                 //add data
                 const loc = sessionStorage.getItem("location");
@@ -64,12 +64,13 @@ function getSnapshot() {
 function addFish() {
     const form = $(".add-fish").find("form")[0];
 
+    const user = JSON.parse(sessionStorage.getItem("user"));
     const fish = {
         name: form.name.value,
         city: form.city.value,
         color: form.colorSelect.value,
-        origin: form.origin.value,
-        parent: form.parent.value
+        origin: user.origin,
+        parent: user.username
     }
 
     var valid = true;

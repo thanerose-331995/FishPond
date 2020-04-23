@@ -2,12 +2,21 @@
 //----------- STATE CHANGE
 
 auth.onAuthStateChanged(user => {
-  console.log(user);
   if (user) {
     //user is logged in
     console.log("User Logged In:", user);
-    sessionStorage.setItem("user", JSON.stringify(user));
-    window.location.href = "./pages/main.html";
+    db.collection('users').doc(user.uid).get().then(doc => {
+      const logged = {
+        uid: user.uid,
+        email: user.email,
+        first_name: doc.data().first_name,
+        last_name: doc.data().last_name,
+        username: doc.data().username,
+        origin: doc.data().origin
+      }
+      sessionStorage.setItem("user", JSON.stringify(logged));
+      window.location.href = "./pages/main.html";
+    });
   }
   else {
     console.log("User Logged Out");

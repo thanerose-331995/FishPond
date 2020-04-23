@@ -1,187 +1,42 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../js/snap.svg-min.js"></script>
-    <script src="../js/jquery-3.4.1.min.js"></script>
-    <title>Document</title>
+    <meta charset="utf-8">
+    <title>My first three.js app</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
-    <h3>Test</h3>
-    <div style="background: black;" id="svg"></div>
+    <script src="../js/three.js"></script>
+    <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        this.geometry = new THREE.PlaneGeometry(0.4, 0.6, 16, 16);
+        this.material = new THREE.ShaderMaterial({
+            vertexShader,
+            fragmentShader,
+            uniforms: {
+                uTime: { value: 0.0 }
+            },
+            wireframe: true,
+        });
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.scene.add(this.mesh);
+    </script>
 </body>
-<script>
-    $(document).ready(() => {
-        // var width = $( window ).width();
-        // var paper = Snap(width, 500);
-
-        // // M	moveto	(x y)+
-        // // Z	closepath	(none)
-        // // L	lineto	(x y)+
-        // // H	horizontal lineto	x+
-        // // V	vertical lineto	y+
-        // // C	curveto	(x1 y1 x2 y2 x y)+
-        // // S	smooth curveto	(x2 y2 x y)+
-        // // Q	quadratic Bézier curveto	(x1 y1 x y)+
-        // // T	smooth quadratic Bézier curveto	(x y)+
-        // // A	elliptical arc	(rx ry x-axis-rotation large-arc-flag sweep-flag x y)+
-        // // R	Catmull-Rom curveto*	x1 y1 (x y)+
-        // var pathstring = "M 50 300 C 50 250 150 200 235 200 C 250 150 250 150 300 100 Q 325 150 300 200 C 350 200 400 220 450 235 C 450 225 500 200 500 200 Q 520 225 500 250 C 750 350 750 240 900 250 Q 825 300 800 300 Q 825 300 850 350 C 750 360 750 250 500 350 Q 525 370 500 400 C 500 400 450 375 450 370 C 400 380 350 400 300 400 Q 325 450 300 500 C 250 450 250 450 235 400 C 150 400 50 350 50 300 ";
-        // var fish = paper.path(pathstring);
-
-
-        // var m = new Snap.Matrix();
-
-        // m.scale(0.3);
-        // m.translate(width,500);
-        // m.rotate(180);
-
-        // fish.attr({
-        //     fill: "green",
-        //     transform: m
-        // });
-
-        // var m2 = new Snap.Matrix();
-
-        // m2.scale(0.3);
-        // m2.translate(width*3,500);
-        // m2.rotate(180);
-
-        // fish.animate({transform: m2}, 5000);
-
-        // //---------------- OBJ CREATION AND STYLING --------
-
-        // //create obj
-        // var bigCircle = s.circle(150, 150, 100);
-
-        // //obj style
-        // bigCircle.attr({
-        //     fill: "#bada55",
-        //     stroke: "#000",
-        //     strokeWidth: 5
-        // });
-
-        // //---------------- OBJ GROUPS ----------------------
-
-        // //new obj
-        // var smallCircle = s.circle(100, 150, 70);
-
-        // //this puts the objs into a group called disc, the smallCircle and a fresh one
-        // var discs = s.group(smallCircle, s.circle(200, 150, 70));
-
-        // //now they can be edited together
-        // discs.attr({
-        //     fill: "#fff"
-        // });
-
-        // //---------------- MASKS ---------------------------
-
-        // //this is a shape mask for more complex shapes
-        // bigCircle.attr({
-        //     mask: discs
-        // });
-
-        // //---------------- ANIMATE -------------------------
-
-        // //this shrinks the radius
-        // smallCircle.animate({ r: 50 }, 1000);
-
-        // //this is how we access instances of a group
-        // discs.select("circle:nth-child(2)").animate({ r: 50 }, 1000);
-
-        // //---------------- PATTERNS ------------------------
-
-        // //this is the pattern function
-        // var p = s.path("M10-5-10,15M15,0,0,15M0-5-20,15").attr({
-        //     fill: "none",
-        //     stroke: "#bada55",
-        //     strokeWidth: 5
-        // });
-
-        // p = p.pattern(0, 0, 10, 10);
-        // // Then use it as a fill on big circle
-        // bigCircle.attr({
-        //     fill: p
-        // });
-
-        // //there are some premade patterns
-        // discs.attr({
-        //     fill: Snap("#pattern")
-        // });
-
-        // //---------------- GRADIENTS -----------------------
-
-        // //this is a radial gradient fill from black to white
-        // //this effects each object in discs seperately
-        // discs.attr({ fill: "r()#fff-#000" });
-
-        // //using a capital R makes the gradient absolute and it treats discs as one obj
-        // discs.attr({ fill: "R(150, 150, 100)#fff-#000" });
-
-        generateFish();
-
-    });
-
-    function generateFish() {
-        //this is a sample array for the amound of fish loaded from the db
-        var fishInDb = [0, 0, 0, 0, 0];
-        var paper = Snap($(window).width(), $(window).height());
-        
-        $('svg').addClass("paper");
-
-        var promise = Promise.resolve();
-
-        fishInDb.forEach(function () {
-            promise = promise.then(function () {
-                drawFish(paper, $(window).width(), $(window).height());
-                return new Promise(function (resolve) {
-                    setTimeout(resolve, 1000);
-                });
-            });
-        });
-
-        promise.then(function () {
-            console.log('Loop finished.');
-        });
-    }
-
-    function drawFish(paper, width, height) {
-
-        //DRAW FISH
-        const pathstring = "M 50 300 C 50 250 150 200 235 200 C 250 150 250 150 300 100 Q 325 150 300 200 C 350 200 400 220 450 235 C 450 225 500 200 500 200 Q 520 225 500 250 C 750 350 750 240 900 250 Q 825 300 800 300 Q 825 300 850 350 C 750 360 750 250 500 350 Q 525 370 500 400 C 500 400 450 375 450 370 C 400 380 350 400 300 400 Q 325 450 300 500 C 250 450 250 450 235 400 C 150 400 50 350 50 300 ";
-        const fish = paper.path(pathstring);
-        const colors = ["black", "orange", "gray"];
-
-        //SET RAND WIDTH/HEIGHT
-        const randWidth = Math.floor(Math.random() * (width * 2));
-        const randHeight = Math.floor(Math.random() * (height * 2));
-
-        //1ST POSITION MATRIX
-        const m = new Snap.Matrix();
-        m.scale(0.3);
-        m.translate(0, height + randHeight);
-        m.rotate(180);
-
-        //SET FISH TO 1ST POSITION
-        fish.attr({
-            fill: colors[Math.floor(Math.random() * 3)],
-            transform: m
-        });
-
-        //2ND POSITION MATRIX
-        const m2 = new Snap.Matrix();
-        m2.scale(0.3);
-        m2.translate((width + randWidth) * 3, height + randHeight);
-        m2.rotate(180);
-
-        //ANIMATE FISH TO 2ND POSITION
-        fish.animate({ transform: m2 }, 4000, () => {
-            //THEN DELETE
-            fish.remove();
-        });
-    }
-</script>
 
 </html>

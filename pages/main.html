@@ -11,6 +11,7 @@
     <!-- js links -->
     <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <script type="text/javascript" src="../js/three.js"></script>
     <title>Fish Pond</title>
     <!-- link to manifest -->
     <link rel="manifest" href="../manifest.json">
@@ -18,74 +19,83 @@
 </head>
 
 <body>
-    <div class="container">
-        <ul id="top-bar" class="center row">
-            <li class="col s3">
-                <h5 class="grey-text text-lighten-4"><b>FishPond</b></h5>
-            </li>
-            <li class="col s9 right-align">
-                <div id="logout">
-                    <i style="padding: 0px" class="btn-flat material-icons grey-text text-lighten-4">exit_to_app</i>
-                </div>
-            </li>
-        </ul>
+    <div id="waves">
     </div>
-    <div class="end">
+    <script src="../js/wave.js"></script>
+    <div class="page-content">
+        <!-- HEADER -->
         <div class="container">
-            <div class="row">
-                <ul class="center">
-                    <li class="col s3">
-                        <a id="pond-button" class="btn-floating disabled cyan waves-effect"><i
-                                class="material-icons">home</i></a>
-                    </li>
-                    <li class="col s3">
-                        <a id="feed-button" class="btn-floating cyan waves-effect"><i
-                                class="material-icons">home</i></a>
-                    </li>
-                    <li class="col s3">
-                        <a id="chats-button" class="btn-floating cyan waves-effect"><i
-                                class="material-icons">chat_bubble</i></a>
-                    </li>
-                    <li class="col s3">
-                        <a id="profile-button" class="btn-floating cyan waves-effect"><i
-                                class="material-icons">account_circle</i></a>
-                    </li>
-                </ul>
+            <ul id="top-bar" class="center row" style="margin-bottom: 7px;">
+                <li class="col s3">
+                    <h5 class="grey-text text-lighten-4"><b>FishPond</b></h5>
+                </li>
+                <li class="col s9 right-align">
+                    <div id="logout">
+                        <i style="padding: 0px" class="btn-flat material-icons grey-text text-lighten-4">exit_to_app</i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- FOOTER -->
+        <div class="end z-depth-1">
+            <div class="container">
+                <div class="row">
+                    <ul class="center">
+                        <li class="col s3">
+                            <a id="pond-button" class="btn-floating disabled cyan waves-effect"><i
+                                    class="material-icons">home</i></a>
+                        </li>
+                        <li class="col s3">
+                            <a id="feed-button" class="btn-floating cyan waves-effect"><i
+                                    class="material-icons">home</i></a>
+                        </li>
+                        <li class="col s3">
+                            <a id="chats-button" class="btn-floating cyan waves-effect"><i
+                                    class="material-icons">chat_bubble</i></a>
+                        </li>
+                        <li class="col s3">
+                            <a id="profile-button" class="btn-floating cyan waves-effect"><i
+                                    class="material-icons">account_circle</i></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <h5 id="welcome-location" class="center"></h5>
-        <div class="fish container row">
-        </div>
-        <div class="center">
-            <a class="btn-floating btn-medium waves-effect waves-light indigo darken-1 modal-trigger"
-                href="#new-fish"><i class="material-icons">add</i></a>
-        </div>
-        <div id="new-fish" class="modal center indigo lighten-5">
-            <h3 style="padding-top: 15px;">Add a new Fish!</h3>
-            <div class="add-fish row">
-                <form class="col s12">
-                    <div class="input-field col s12">
-                        <input id="name" type="text" class="validate" required>
-                        <label for="name">Name</label>
-                        <div></div>
-                    </div>
-                    <div class="input-field col s12">
-                        <select class="colorSelect" name="colorSelect">
-                            <option value="" disabled selected>Color</option>
-                            <option value="black">Black</option>
-                            <option value="white">White</option>
-                            <option value="orange">Orange</option>
-                        </select>
-                        <label>Select Color</label>
-                    </div>
-                    <input id="fish-origin" type="hidden" name="origin" value="null">
-                    <input id="fish-parent" type="hidden" name="parent" value="null">
-                    <input id="fish-city" type="hidden" name="city" value="null">
-                </form>
+        <!-- CONTENT -->
+        <div class="container">
+            <h6 id="welcome-location" class="grey-text text-lighten-4 center" style="padding: 0 70 0 70;"></h6>
+            <br>
+            <div class="fish row" style="margin: 5px;">
             </div>
-            <div class="card added-fish center indigo lighten-4"></div>
+            <div class="center">
+                <a class="btn-floating btn-medium modal-trigger" style="background:linear-gradient(145deg, rgba(105,228,255,1) 0%, rgba(120,132,255,1) 100%);"
+                    href="#new-fish"><i class="material-icons">add_circle_outline</i></a>
+            </div>
+            <div id="new-fish" class="modal center indigo lighten-5">
+                <h4 style="padding: 15px;">Add a new Fish!</h4>
+                <div class="add-fish row">
+                    <form class="col s12">
+                        <div class="input-field col s12">
+                            <input id="name" type="text" class="validate" required>
+                            <label for="name">Name</label>
+                            <div></div>
+                        </div>
+                        <div class="input-field col s12">
+                            <select class="colorSelect" name="colorSelect">
+                                <option value="" disabled selected>Color</option>
+                                <option value="black">Black</option>
+                                <option value="white">White</option>
+                                <option value="orange">Orange</option>
+                            </select>
+                            <label>Select Color</label>
+                        </div>
+                        <input id="fish-origin" type="hidden" name="origin" value="null">
+                        <input id="fish-parent" type="hidden" name="parent" value="null">
+                        <input id="fish-city" type="hidden" name="city" value="null">
+                    </form>
+                </div>
+                <div class="card added-fish center indigo lighten-4"></div>
+            </div>
         </div>
     </div>
 
@@ -117,7 +127,7 @@
             getCity(res.latitude, res.longitude, function (city) {
                 sessionStorage.setItem("location", city);
                 console.log("city:", city);
-                $("#welcome-location").html(`Welcome to the <b>${city}</b> pond`);
+                $("#welcome-location").html(`<b>Welcome to the <i id="location-name" data-text="${city}">${city}</i> pond.</b>`);
                 $("#fish-city").val(city);
                 // getFish(city);
             })
