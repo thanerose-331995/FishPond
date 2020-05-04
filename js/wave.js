@@ -22,7 +22,8 @@ window.onload = function () {
     function mainloop() {
         window.requestAnimationFrame(mainloop);
 
-        updateWave();
+        // updateWave();
+        moveFish();
         renderer.render(scene, camera);
     }
 
@@ -40,11 +41,54 @@ window.onload = function () {
         scene.add(plane);
     }
 
+
+    // instantiate a loader
+    var loader = new THREE.OBJLoader();
+    var fish;
+    // load a resource
+    loader.load(
+        // resource URL
+        // 'models/monster.obj',
+        '../img/obj/fishu.obj',
+        // called when resource is loaded
+        function (object) {
+            object.position.set(0, 0, -3);
+            object.scale.set(0.02, 0.02, 0.02);
+
+            var material = new THREE.MeshStandardMaterial({
+                color: 0x2194ce,
+            });
+            // fish = new THREE.Mesh(object, material);
+            object.traverse(function (child) {
+
+                if (child instanceof THREE.Mesh) {
+
+                    child.material = material;
+
+                }
+
+            });
+            fish = object;
+            scene.add(fish);
+
+        },
+        // called when loading is in progresses
+        function (xhr) {
+
+            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
+        },
+        // called when loading has errors
+        function (error) {
+
+            console.log('An error happened', error);
+
+        }
+    );
     //waves
     var wave;
     {
         var geometry = new THREE.PlaneGeometry(50, 30, 70, 150);
-        // geometry = new THREE.WireframeGeometry(geometry);
         var material = new THREE.MeshPhongMaterial({
             color: 0x03a9fc,
             emissive: 0x3446a5,
@@ -86,5 +130,13 @@ window.onload = function () {
         wave.geometry.computeVertexNormals();
     }
 
+    function moveFish() {
+        // console.log(fish.position);
+        var current = fish.position;
+        // console.log(current);
+        // fish.position.set(current.x + 0.03, current.y, current.z);
+    }
+
     mainloop(); // entry point
 }
+

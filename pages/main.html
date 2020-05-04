@@ -12,6 +12,7 @@
     <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../js/materialize.min.js"></script>
     <script type="text/javascript" src="../js/three.js"></script>
+  <script src='https://mamboleoo.be/learnThree/demos/OBJLoader.js'></script>
     <title>Fish Pond</title>
     <!-- link to manifest -->
     <link rel="manifest" href="../manifest.json">
@@ -22,48 +23,23 @@
     <div id="waves">
     </div>
     <script src="../js/wave.js"></script>
-    <div class="page-content">
+    <div class="page-content" style="display: none;">
         <!-- HEADER -->
-        <div class="container">
-            <ul id="top-bar" class="center row" style="margin-bottom: 7px;">
-                <li class="col s3">
+        <div class="head container">
+            <ul id="top-bar">
+                <li>
                     <h5 class="grey-text text-lighten-4"><b>FishPond</b></h5>
                 </li>
-                <li class="col s9 right-align">
+                <li>
                     <div id="logout">
-                        <i style="padding: 0px" class="btn-flat material-icons grey-text text-lighten-4">exit_to_app</i>
+                        <i class="btn-flat material-icons grey-text text-lighten-4">exit_to_app</i>
                     </div>
                 </li>
             </ul>
         </div>
-        <!-- FOOTER -->
-        <div class="end z-depth-1">
-            <div class="container">
-                <div class="row">
-                    <ul class="center">
-                        <li class="col s3">
-                            <a id="pond-button" class="btn-floating disabled cyan waves-effect"><i
-                                    class="material-icons">home</i></a>
-                        </li>
-                        <li class="col s3">
-                            <a id="feed-button" class="btn-floating cyan waves-effect"><i
-                                    class="material-icons">home</i></a>
-                        </li>
-                        <li class="col s3">
-                            <a id="chats-button" class="btn-floating cyan waves-effect"><i
-                                    class="material-icons">chat_bubble</i></a>
-                        </li>
-                        <li class="col s3">
-                            <a id="profile-button" class="btn-floating cyan waves-effect"><i
-                                    class="material-icons">account_circle</i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <!-- CONTENT -->
-        <div class="container">
-            <h6 id="welcome-location" class="grey-text text-lighten-4 center" style="padding: 0 70 0 70;"></h6>
+        <div class="content container">
+            <h6 id="welcome-location" class="grey-text text-lighten-4 center" style="padding: 0 70;"></h6>
             <br>
             <div class="fish row" style="margin: 5px;">
             </div>
@@ -95,6 +71,31 @@
                     </form>
                 </div>
                 <div class="card added-fish center indigo lighten-4"></div>
+            </div>
+        </div>
+        <!-- FOOTER -->
+        <div class="end z-depth-0">
+            <div class="container">
+                <div class="row">
+                    <ul class="center">
+                        <li class="col s3">
+                            <a id="pond-button" class="btn-floating disabled cyan waves-effect"><i
+                                    class="material-icons">home</i></a>
+                        </li>
+                        <li class="col s3">
+                            <a id="feed-button" class="btn-floating cyan waves-effect"><i
+                                    class="material-icons">home</i></a>
+                        </li>
+                        <li class="col s3">
+                            <a id="chats-button" class="btn-floating cyan waves-effect"><i
+                                    class="material-icons">chat_bubble</i></a>
+                        </li>
+                        <li class="col s3">
+                            <a id="profile-button" class="btn-floating cyan waves-effect"><i
+                                    class="material-icons">account_circle</i></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
