@@ -1,4 +1,9 @@
-
+var fishes = new THREE.Group();
+var startPos = [];
+var rev = false;
+var turn = false;
+var change = false;
+var rot = true;
 
 window.onload = function () {
 
@@ -68,9 +73,11 @@ window.onload = function () {
                 }
 
             });
+            console.log("check");
             fish = object;
-            scene.add(fish);
-
+            fishes.add(fish);
+            startPos.push({ x: fish.position.x });
+            scene.add(fishes);
         },
         // called when loading is in progresses
         function (xhr) {
@@ -131,12 +138,61 @@ window.onload = function () {
     }
 
     function moveFish() {
-        // console.log(fish.position);
-        var current = fish.position;
-        // console.log(current);
-        // fish.position.set(current.x + 0.03, current.y, current.z);
+        for (var x = 0; x < fishes.children.length; x++) {
+            var fish = fishes.children[x];
+            // console.log(startPos[x]);
+            // console.log(fish.rotation.y);
+            // console.log(turn)
+            if (turn) {
+                if(rot){
+                    // console.log("check");
+                    fish.rotateY(-0.03);
+                }
+                console.log(fish.rotation.y);
+                if (fish.rotation.y > 0) {
+                    // rot = false;
+                    turn = false;
+                }
+                // if(!rot){
+                //     fish.rotateY(-0.03);
+                // }
+                // console.log(fish.rotation.y);
+            }
+            // console.log(fish.rotation);
+            // console.log(fish);
+
+
+            var maxX = startPos[x].x + 2, minX = startPos[x].x - 2;
+            var inc = 0.04;
+
+            if (!turn) {
+                // //forward 
+                if (!rev) {
+                    fish.position.set(fish.position.x + inc, fish.position.y, fish.position.z);
+                }
+                if(fish.position.x > maxX) {
+                    rev = true;
+                    turn = true;
+                }
+
+                //back
+                if(rev) {
+                    fish.position.set(fish.position.x - inc, fish.position.y, fish.position.z);
+                }
+                if(fish.position.x < minX) {
+                    rev = false;
+                    turn = true;
+                }
+            }
+
+        }
     }
 
     mainloop(); // entry point
 }
 
+class Fish {
+    constructor(fish) {
+        this.fish = fish;
+    }
+}
