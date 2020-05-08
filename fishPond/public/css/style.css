@@ -2,9 +2,9 @@ body {
   background-image: url("../img/textures/background.jpg");
   background-size: cover;
 }
-/* h5, h6{
-  margin: 0px;
-} */
+
+/* ------------ MAIN PAGE */
+
 #waves{
   position: fixed;
 }
@@ -35,18 +35,6 @@ body {
 #top-bar h5{
   margin: 0px;
 }
-/* .page-content{
-  position: absolute;
-  width: 100%;
-} */
-/* .fish{
-  overflow: scroll;
-} */
-/* #location-name{
-  background: linear-gradient(145deg, rgba(105,228,255,1) 0%, rgba(120,132,255,1) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-} */
 #location-name {
   background: linear-gradient(145deg, rgba(105,228,255,1) 0%, rgba(120,132,255,1) 100%);
   -webkit-background-clip: text;
@@ -63,15 +51,39 @@ body {
   top: 0;
   z-index: -1;
 }
-/* .container  {
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
+
+/* ------------ PROFILE PAGE */
+
+#profile-data{
+  background-color: rgba(255,255,255,0.4);
+  border-radius: 15px;
+  padding: 20px;
 }
 
-.container .row {
-  margin: 0 auto;
-} */
+#profile-data img{
+  height: 100px;
+  width: 100px;
+  margin-bottom: 5px;
+  background-size: cover;
+}
+
+#profile-data p, h4{
+  color: white;
+  margin: 0px;
+}
+
+#user-fish{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 15px;
+}
+
+.user-fish-data{
+  padding: 5px;
+  border-radius: 100px;
+}
+
+.user-fish-data p{
+  margin: 0px;
+
+}

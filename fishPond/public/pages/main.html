@@ -12,7 +12,7 @@
     <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../js/materialize.min.js"></script>
     <script type="text/javascript" src="../js/three.js"></script>
-  <script src='https://mamboleoo.be/learnThree/demos/OBJLoader.js'></script>
+    <script src='https://mamboleoo.be/learnThree/demos/OBJLoader.js'></script>
     <title>Fish Pond</title>
     <!-- link to manifest -->
     <link rel="manifest" href="../manifest.json">
@@ -22,7 +22,7 @@
 <body>
     <div id="waves">
     </div>
-    <script src="../js/wave.js"></script>
+    <!-- <script src="../js/wave.js"></script> -->
     <div class="page-content">
         <!-- HEADER -->
         <div class="head container">
@@ -41,10 +41,26 @@
         <div class="content container">
             <h6 id="welcome-location" class="grey-text text-lighten-4 center" style="padding: 0 70;"></h6>
             <br>
-            <div class="fish row" style="margin: 5px;">
+            <div class="center" id="preload">
+                <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="pond-fish" class="row" style="margin: 5px;display:none;">
             </div>
             <div class="center">
-                <a class="btn-floating btn-medium modal-trigger" style="background:linear-gradient(145deg, rgba(105,228,255,1) 0%, rgba(120,132,255,1) 100%);"
+                <a class="btn-floating btn-medium modal-trigger"
+                    style="background:linear-gradient(145deg, rgba(105,228,255,1) 0%, rgba(120,132,255,1) 100%);"
                     href="#new-fish"><i class="material-icons">add_circle_outline</i></a>
             </div>
             <div id="new-fish" class="modal center indigo lighten-5">
@@ -79,19 +95,19 @@
                 <div class="row">
                     <ul class="center">
                         <li class="col s3">
-                            <a id="pond-button" class="btn-floating disabled cyan waves-effect"><i
+                            <a href="./main.html" class="btn-floating disabled cyan waves-effect"><i
                                     class="material-icons">home</i></a>
                         </li>
                         <li class="col s3">
-                            <a id="feed-button" class="btn-floating cyan waves-effect"><i
+                            <a href="./feed.html" class="btn-floating cyan waves-effect"><i
                                     class="material-icons">home</i></a>
                         </li>
                         <li class="col s3">
-                            <a id="chats-button" class="btn-floating cyan waves-effect"><i
+                            <a class="btn-floating disabled cyan waves-effect"><i
                                     class="material-icons">chat_bubble</i></a>
                         </li>
                         <li class="col s3">
-                            <a id="profile-button" class="btn-floating cyan waves-effect"><i
+                            <a href="./profile.html" class="btn-floating cyan waves-effect"><i
                                     class="material-icons">account_circle</i></a>
                         </li>
                     </ul>
@@ -109,7 +125,8 @@
 
     <script src="../js/app.js"></script>
     <script src="../js/db.js"></script>
-    <script src="../js/ui.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/fish.js"></script>
 </body>
 
 </html>
@@ -120,8 +137,8 @@
 
         //INIT SELECT FORM
         M.AutoInit();
-        $('.fish').empty();
-        getSnapshot();
+        $('#pond-fish').empty();
+        // getSnapshot();
 
         //GET GEO
         getGeo(function (res) {
@@ -130,7 +147,7 @@
                 console.log("city:", city);
                 $("#welcome-location").html(`<b>Welcome to the <i id="location-name" data-text="${city}">${city}</i> pond.</b>`);
                 $("#fish-city").val(city);
-                // getFish(city);
+                getFish("city", city);
             })
         })
     });

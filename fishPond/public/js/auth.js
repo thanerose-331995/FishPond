@@ -15,14 +15,24 @@ auth.onAuthStateChanged(user => {
         origin: doc.data().origin
       }
       sessionStorage.setItem("user", JSON.stringify(logged));
-      window.location.href = "./pages/main.html";
+      if(!window.location.href.includes("main")){
+        window.location.href = "./pages/main.html";
+      }
     });
   }
   else {
     console.log("User Logged Out");
+    window.location.href = "../";
   }
 })
 
+$("#logout").click(e => {
+  e.preventDefault();
+  auth.signOut().then(() => {
+      console.log("User Signed Out");
+      window.location.href = "../";
+  })
+})
 
 //---------- FORM HANDLING
 
@@ -57,6 +67,3 @@ function objectifyForm(formArray) {//serialize data function
   }
   return returnArray;
 }
-
-
-//---------- USER DATA

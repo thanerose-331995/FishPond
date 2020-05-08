@@ -19,8 +19,49 @@
 
 <body class="blue">
 
-    <div class="container">
-        <h4>Feed</h4>
+    <div class="page-content">
+        <!-- HEADER -->
+        <div class="head container">
+            <ul id="top-bar">
+                <li>
+                    <h5 class="grey-text text-lighten-4"><b>FishPond</b></h5>
+                </li>
+                <li>
+                    <div id="logout">
+                        <i class="btn-flat material-icons grey-text text-lighten-4">exit_to_app</i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- CONTENT -->
+        <div class="content container">
+            <h4>Feed</h4>
+        </div>
+        <!-- FOOTER -->
+        <div class="end z-depth-0">
+            <div class="container">
+                <div class="row">
+                    <ul class="center">
+                        <li class="col s3">
+                            <a id="pond-button" class="btn-floating disabled cyan waves-effect"><i
+                                    class="material-icons">home</i></a>
+                        </li>
+                        <li class="col s3">
+                            <a id="feed-button" class="btn-floating cyan waves-effect"><i
+                                    class="material-icons">home</i></a>
+                        </li>
+                        <li class="col s3">
+                            <a id="chats-button" class="btn-floating cyan waves-effect"><i
+                                    class="material-icons">chat_bubble</i></a>
+                        </li>
+                        <li class="col s3">
+                            <a id="profile-button" class="btn-floating cyan waves-effect"><i
+                                    class="material-icons">account_circle</i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
