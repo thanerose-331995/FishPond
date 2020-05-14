@@ -16,6 +16,8 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 const auth = firebase.auth();
+const storage = firebase.storage();
+const storageRef = storage.ref(); // a reference point for the storage
 
 //offline data
 db.enablePersistence()
@@ -27,3 +29,19 @@ db.enablePersistence()
             console.log('persistence failed, not avalible in this browser.');
         }
     })
+
+// ------- FILE HANDING ---
+
+//upload file
+function upload(file, urlRef, callback) {
+    storageRef.child(urlRef).put(file).then(function (snapshot) {
+        callback(snapshot);
+    })
+}
+
+//get file url to use in app
+function download(urlRef, callback) {
+    storageRef.child(urlRef).getDownloadURL().then(function (url) {
+        callback(url)
+    }).catch(err => { callback(err) })
+}

@@ -8,7 +8,7 @@ function displayFish(data, id, key, container) {
     name = name.replace(name[0], name[0].toUpperCase());
     if (key == "city") {
         var html = `
-        <div class="card" id="${id}" style="background-color: rgba(255,255,255,0.3)">
+        <div class="card" id="${id}" style="background-color: rgba(255,255,255,0.3)" onClick="fishClick('${id}')">
             <div class="card-content white-text row" style="font-size: 11px;padding:15px">
                 <h5 class="col s12">${name}</h5>
                 <div class="divider col s12" style="margin: 5px"></div>
@@ -30,8 +30,24 @@ function displayFish(data, id, key, container) {
         </div>
         `;
     }
-    console.log(container);
     $(container).append(html);
+    $("#"+id).attr("data",  JSON.stringify(data));
+}
+
+function fishClick(id){
+    var data = JSON.parse($("#"+id).attr("data"));
+
+    $($("#fish-data").children()[0]).empty();
+    var html = `<h5 class="col s12">${data["name"].replace(data["name"][0], data["name"][0].toUpperCase())}</h5>`;
+    for(var key in data){
+        if(key != "name"){
+            html += `<p class="col s6"><b>${key.replace(key[0], key[0].toUpperCase())}:</b> ${data[key]}</p>`;
+        }
+    }    
+    $($("#fish-data").children()[0]).append(html);
+
+    var modal = M.Modal.getInstance($("#fish-data"));
+    modal.open();
 }
 
 // ------------ READ

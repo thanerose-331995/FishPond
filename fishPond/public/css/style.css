@@ -63,8 +63,25 @@ body {
 #profile-data img{
   height: 100px;
   width: 100px;
-  margin-bottom: 5px;
   background-size: cover;
+}
+#profile-img{
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 5px;
+}
+#overlay{
+  height: 100px;
+  width: 100px;
+  position: fixed;
+  border-radius: 100%;
+  margin-bottom: 5px;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: 0.3s;
+}
+#overlay:hover{
+  opacity: 1;
 }
 
 #profile-data p, h4{

@@ -89,6 +89,10 @@
                 <div class="card added-fish center indigo lighten-4"></div>
             </div>
         </div>
+        <div id="fish-data" class="modal center">
+            <div class="modal-content row">
+            </div>
+          </div>
         <!-- FOOTER -->
         <div class="end z-depth-0">
             <div class="container">
@@ -134,7 +138,7 @@
 
     //ON DOC LOAD
     $(document).ready(() => {
-
+        $('.modal').modal();
         //INIT SELECT FORM
         M.AutoInit();
         $('#pond-fish').empty();

@@ -34,11 +34,35 @@
         </div>
         <!-- CONTENT -->
         <div class="content container">
-            <div id="profile-data" class="container center">
-                
-            </div>
+            <div id="profile-data" class="container center"></div>
             <h6 class="center white-text">User Fish</h6>
-            <div id="user-fish" class="container">
+            <div id="user-fish" class="container"></div>
+        </div>
+        <div id="edit-profile" class="modal">
+            <div class="modal-content center">
+                <h6><b>Edit Profile</b></h6>
+                <br>
+                <form class="row">
+                    <div class="divider"></div>
+                    <br>
+                    <div id="edit-pfp" class="responsive-img circle"
+                        style="height: 100px; width: 100px;background-color: aquamarine;margin: auto;"></div>
+                    <input id="pfp-upload" onchange="pfpUpdate()" type="file" name="file">
+                    <br>
+                    <div class="input-field col s6">
+                        <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                        <label for="last">Last Name</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input placeholder="Placeholder" id="username" type="text" class="validate">
+                        <label for="username">Username</label>
+                    </div>
+                </form>
+                <a href="#!" class="modal-close waves-effect waves-cyan btn-flat">Save</a>
             </div>
         </div>
         <!-- FOOTER -->
@@ -81,18 +105,19 @@
 <script>
 
     $(document).ready(() => {
+        $('.modal').modal();
+
         var user = $.parseJSON(sessionStorage.user);
-        db.collection('users').doc(user.uid).get().then(snapshot =>{
-            console.log(snapshot.data());
-            // var fname = snapshot.data().first_name, lname = snapshot.data().last_name;
+        db.collection('users').doc(user.uid).get().then(snapshot => {
             var name = snapshot.data().first_name + " " + snapshot.data().last_name;
-            // fname = fname.replace(fname[0], fname[0].toUpperCase());
-            // lname = lname.replace(lname[0], lname[0].toUpperCase()); 
-            for(var x = 0; x < name.length; x++){
+            for (var x = 0; x < name.length; x++) {
                 name = name.replace(name[x], name[x].toUpperCase());
             }
             const html = `
-                <img src="../img/fish.png" class="responsive-img circle z-depth-1">
+                <div id="profile-img">
+                    <div id="overlay" class="center white-text"><i class="material-icons medium" style="margin-top: 20%" onClick="openEdit()">edit</i></div>
+                    <img src="../img/fish.png" class="responsive-img circle z-depth-1">
+                </div>
                 <p><b>${name}</b></p>
                 <h4><i>${snapshot.data().username}</i></h4>
             `;
@@ -100,6 +125,38 @@
             $("#profile-data").append(html);
         })
     });
+
+    function openEdit() {
+        var modal = M.Modal.getInstance($("#edit-profile"));
+        modal.open();
+    }
+
+    function pfpUpdate() {
+        var form = $("#edit-profile form");
+        console.log(form);
+        const user = JSON.parse(sessionStorage.user);
+        upload(form[0].file.files[0], 'temp/' + user.uid, () => {
+            download('temp/' + user.uid, url => {
+                $("#edit-pfp").attr("src", url);
+                $("#edit-pfp").css("background-size", "cover");
+            })
+        })
+        // if (type == "edit") {
+        //     var form = $("#edit-pet");
+        //     var output = $("#edit-pet-pfp");
+        // }
+        // else {
+        //     var form = $("#add-pet");
+        //     var output = $("#new-pet-pfp");
+        // }
+        // const user = JSON.parse(sessionStorage.getItem("user"));
+        // upload(form[0].file.files[0], 'temp/' + user.uid, () => {
+        //     download('temp/' + user.uid, url => {
+        //         output.attr("src", url);
+        //         output.css("background-size", "cover");
+        //     })
+        // })
+    }
 
 </script>
 
