@@ -81,7 +81,7 @@ function animate() {
     window.requestAnimationFrame(animate);
 
     updateWave();
-    // moveFish();
+    moveFish();
     renderer.render(scene, camera);
 }
 
