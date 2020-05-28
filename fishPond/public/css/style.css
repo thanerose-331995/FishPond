@@ -54,6 +54,11 @@ body {
 
 /* ------------ PROFILE PAGE */
 
+
+#profile-pond{
+  position: fixed;
+}
+
 #profile-data{
   background-color: rgba(255,255,255,0.4);
   border-radius: 15px;
@@ -87,6 +92,20 @@ body {
 #profile-data p, h4{
   color: white;
   margin: 0px;
+}
+
+#edit-pfp, #profile-pfp{
+  height: 100px;
+  width: 100px;
+  background-color: aquamarine;
+  margin: auto;
+  background-size: cover;
+  background-position: center;
+}
+#pfp-upload{
+  width: 100px;
+  padding: 6px 10px;
+  font-size: 10pt;
 }
 
 #user-fish{

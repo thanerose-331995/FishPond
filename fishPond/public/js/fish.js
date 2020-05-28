@@ -5,17 +5,20 @@
 // DISPLAY FISH DATA
 function displayFish(data, id, key, container) {
     var name = data.name;
-    name = name.replace(name[0], name[0].toUpperCase());
+    // name = name.replace(name[0], name[0].toUpperCase());
+    var creation = new Date(data.dateCreated);
+    var today = new Date();
+    var points = (today.getTime() - creation.getTime())  / 100000;
     if (key == "city") {
         var html = `
         <div class="card" id="${id}" style="background-color: rgba(255,255,255,0.3)" onClick="fishClick('${id}')">
             <div class="card-content white-text row" style="font-size: 11px;padding:15px">
-                <h5 class="col s12">${name}</h5>
+                <h5 class="col s3">${name}</h5>
+                <div class="col s9 right-align">Points: ${Math.floor(points)}</div>
                 <div class="divider col s12" style="margin: 5px"></div>
                 <div class="col s12 align-left row" style="margin:0px">
-                
-                <p class="col s4">User: ${data.parent}</p>
-                <p class="col s6">Origin City: ${data.origin}</p>
+                    <p class="col s6">User: ${data.parent}</p>
+                    <p class="col s6">Origin City: ${data.origin}</p>
                 </div>
             </div>
         </div>
@@ -29,6 +32,8 @@ function displayFish(data, id, key, container) {
             <p>${data.city}</p>
         </div>
         `;
+        var currentPoints = $("#points").html();        
+        $("#points").html(parseInt(currentPoints) + Math.floor(points));
     }
     $(container).append(html);
     $("#"+id).attr("data",  JSON.stringify(data));
@@ -40,7 +45,7 @@ function fishClick(id){
     $($("#fish-data").children()[0]).empty();
     var html = `<h5 class="col s12">${data["name"].replace(data["name"][0], data["name"][0].toUpperCase())}</h5>`;
     for(var key in data){
-        if(key != "name"){
+        if(key != "name" && key != "dateCreated"){
             html += `<p class="col s6"><b>${key.replace(key[0], key[0].toUpperCase())}:</b> ${data[key]}</p>`;
         }
     }    
@@ -54,12 +59,15 @@ function fishClick(id){
 
 // GET FISH DATA
 function getFish(key, val) {
+    sessionStorage.numberOfFish = 0;
     var container = (key == "city") ? $("#pond-fish") : $("#user-fish");
     $(container).empty();
     db.collection("fish").where(key, "==", val).get().then(snapshot => {
         snapshot.forEach(snap => {
             displayFish(snap.data(), snap.id, key, container);
         })
+        sessionStorage.numberOfFish = snapshot.size;
+        addFishToScene();
         $("#preload").fadeOut(() => {
             $(container).fadeIn();
         })
@@ -74,7 +82,6 @@ $(".add-fish").change(() => {
     var name = fish.name.value;
     name = name.replace(name[0], name[0].toUpperCase());
     var user = $.parseJSON(sessionStorage.user);
-    console.log(user);
     $(".added-fish").empty();
     $(".added-fish").append(
         `<div class="card-content">
@@ -110,7 +117,7 @@ function addFish() {
 
     var valid = true;
     for (var val in fish) {
-        if (val == "") {
+        if (fish[val] == "") {
             valid = false;
         }
     }
