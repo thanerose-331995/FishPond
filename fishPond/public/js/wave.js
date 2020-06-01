@@ -72,7 +72,6 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(W, H);
 
-
     $(".pond").append(renderer.domElement);
 
 }

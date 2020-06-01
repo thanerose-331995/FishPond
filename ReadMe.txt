@@ -1,0 +1,1 @@
+Files uploaded do not include Firebase management JSON files or extra noded.js files, as they are not relevant to my own development and to include everything would be too large an upload.
